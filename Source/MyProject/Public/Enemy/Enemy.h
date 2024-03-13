@@ -38,7 +38,6 @@ private:
 // ======================================================================================================================================================
 public:
 	virtual void Attack() override;
-	virtual void PlayAttackMontage() override;
 	virtual void GetHit_Implementation(const FVector& ImpactPoint) override;
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 protected:
@@ -67,6 +66,8 @@ private:
 	float AttackMin = 0.5f;
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float AttackMax = 1.f;
+	UPROPERTY(EditAnywhere, Category = Combat)
+	float DeathLifeSpan = 8.f;
 
 // ======================================================================================================================================================
 // AI Section
@@ -134,9 +135,10 @@ private:
 // Animations Section
 // ======================================================================================================================================================
 protected:
+	virtual int32 PlayDeathMontage() override;
 
 	UPROPERTY(BlueprintReadOnly)
-	EDeathPose DeathPose;
+	TEnumAsByte<EDeathPose> DeathPose;
 
 private:
 

@@ -71,7 +71,6 @@ protected:
 	Play Montage Funtions
 	*/
 
-	virtual void PlayAttackMontage() override;
 	virtual void AttackEnd() override;
 	virtual bool CanAttack() override;
 	void PlayEquipMontage(const FName& SectionName);

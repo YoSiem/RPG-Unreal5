@@ -154,44 +154,6 @@ void APlayerCharacter::Attack()
 
 }
 
-void APlayerCharacter::PlayAttackMontage()
-{
-	Super::PlayAttackMontage();
-
-	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	if (AnimInstance && AttackMontage)
-	{
-		const int32 WeaponType = static_cast<int32>(EquippedWeapon->Weapon_Type);	//can be 1 or 2
-		int32 SelectionRangeEnd = (WeaponType == 2) ? 2 : 4;
-		const int32 Selection = FMath::RandRange(1, SelectionRangeEnd);
-
-		AnimInstance->Montage_Play(AttackMontage);
-		FName SelectionName = FName();
-
-		if (WeaponType == 1) // One-handed weapon
-		{
-			switch (Selection)
-			{
-			case 1: SelectionName = FName("1H-Attack1"); break;
-			case 2: SelectionName = FName("1H_Attack2"); break;
-			case 3: SelectionName = FName("1H_Attack3"); break;
-			case 4: SelectionName = FName("1H-Attack4"); break;
-			default: break;
-			}
-		}
-		else if (WeaponType == 2) // Two-handed weapon
-		{
-			switch (Selection)
-			{
-			case 1: SelectionName = FName("2H-Attack1"); break;
-			case 2: SelectionName = FName("2H-Attack2"); break;
-			default: break;
-			}
-		}
-		AnimInstance->Montage_JumpToSection(SelectionName, AttackMontage);
-	}
-}
-
 void APlayerCharacter::AttackEnd()
 {
 	ActionState = EActionState::EAS_Unoccupied;
